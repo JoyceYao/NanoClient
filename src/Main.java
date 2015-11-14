@@ -17,7 +17,7 @@ import java.util.Random;
 public class Main {
 
     private static StringBuffer command = new StringBuffer();
-    private static String myTeamName = "";
+    private static String myTeamName = "mv_cly";
     private static Player myPlayer = null;
     private static Player adverPlayer = null;
     private static Board board = new Board();
@@ -30,8 +30,8 @@ public class Main {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String state;
-            //game = Game.getInstance();
-            myTeamName = args[0];
+            
+            if(args.length > 0){ myTeamName = args[0]; }
             out.println("REGISTER:" + myTeamName);
             while ((state = in.readLine()) != null) {
                 if(state.equals("START")){
