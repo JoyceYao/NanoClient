@@ -5,6 +5,7 @@ import game.Move;
 import game.Node;
 import game.Player;
 import game.PlayerId;
+import game.PropertyService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +18,14 @@ import java.util.Random;
 public class Main {
 
     private static StringBuffer command = new StringBuffer();
+    private static String strategyConfFile = "strategy.properties";
+    private static PropertyService propService = null;
     private static String myTeamName = "mv_cly";
     private static Player myPlayer = null;
     private static Player adverPlayer = null;
     private static Board board = new Board();
-    private static String myStrategy = "RandomStrategy";
+    
+    private static String myStrategy = ""; //"RandomStrategy";
 
     public static void main(String[] args) {
 
@@ -30,6 +34,10 @@ public class Main {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String state;
+            propService = new PropertyService(strategyConfFile);
+            System.out.println("propService=" + propService);
+            myStrategy = propService.getPropValues("Strategy");
+            System.out.println("myStrategy=" + myStrategy);
             
             if(args.length > 0){ myTeamName = args[0]; }
             out.println("REGISTER:" + myTeamName);
@@ -90,5 +98,5 @@ public class Main {
     		myPlayer.setAdverPlayer(adverPlayer);
     	}
     }
-    
+
 }

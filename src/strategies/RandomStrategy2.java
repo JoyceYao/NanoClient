@@ -9,12 +9,13 @@ import game.Strategy;
 
 import java.util.Random;
 
-public class RandomStrategy extends Strategy {
+public class RandomStrategy2 extends Strategy {
 	Random random = new Random();
 
 	@Override
 	public Move makeAMove(Board board, Player myPlayer, Player adversary) {
-		System.out.println("this is RandomStrategy!!");
+		System.out.println("this is RandomStrategy2!!");
+		
 		Move move = new Move();
 		
 		if(myPlayer.getUnused() > 0 && board.freeNodes.size() > 0){
