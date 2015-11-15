@@ -67,6 +67,7 @@ public class Main {
         }
     }
 
+    // receive message from server, use it to update players info
     private static void updatePlayers(String command){
     	String[] lines = command.split("\n");
     	for(int i=1; i<lines.length; i++){

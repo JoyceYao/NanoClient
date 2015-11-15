@@ -3,7 +3,10 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
+ * format: (nodId),(direction1),(direction2),(direction3),(direction4)|(nodId),(direction1),(direction2),(direction3),(direction4)
+ * example: 74,UP,DOWN,LEFT,RIGHT|88,LEFT,RIGHT,DOWN,UP
+ */
 public class Move {
 	public boolean isPass;
 	List<String> nanoMoves = new ArrayList<String>();
