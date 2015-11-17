@@ -32,12 +32,12 @@ public class RandomMaxScoreStrategy extends Strategy {
 
 			System.out.println("test[0]!");
 			
-			for(int i=0; i<10; i++){
+			for(int i=0; i<50; i++){
 				Move move = new Move();				
-				for(int j=0; j<myPlayer.getUnused(); j++){
+				//for(int j=0; j<myPlayer.getUnused(); j++){
 					int nodeId = random.nextInt(board.maxNodeId+1);
 					addRandomDirectionProgram(move, nodeId);
-				}
+				//}
 				int thisScore = service.getScoreOfThisMove(board, move, myPlayer);
 				
 				System.out.println("thisMove=" + move.toString());

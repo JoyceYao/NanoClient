@@ -101,7 +101,7 @@ public class Node {
 
     public void move(Direction direction){
     	
-    	//if(this.occupant == null){ return; }
+    	if(this.occupant == null){ return; }
     	
             switch (direction){
                 case UP:
