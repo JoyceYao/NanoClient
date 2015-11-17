@@ -7,6 +7,7 @@ public class Node {
     private int xLoc;
     private int yLoc;
     private Status status;
+    public int groupId;
 
     public Node up;
     public Node down;
@@ -15,6 +16,8 @@ public class Node {
 
     private Piece occupant;
     private List<Piece> desireOccupancy = new LinkedList<Piece>();
+    
+    public Status tmpStatus;
 
 
     public Node(int id, int xLoc, int yLoc){
@@ -22,6 +25,7 @@ public class Node {
         this.xLoc = xLoc;
         this.yLoc = yLoc;
         status = Status.FREE;
+        this.groupId = -1;
     }
 
     public int getId(){
@@ -127,8 +131,10 @@ public class Node {
         if(this.occupant != null){
             if(this.occupant.getPlayerId().equals(PlayerId.ONE)){
                 this.status = Status.EATEN_P1;
+            	//this.tmpStatus = Status.EATEN_P1;
             }else{
                 this.status = Status.EATEN_P2;
+            	//this.tmpStatus = Status.EATEN_P2;
             }
         }
 

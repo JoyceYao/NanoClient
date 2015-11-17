@@ -36,8 +36,8 @@ public class Player {
         return this.playerName;
     }
 
-    public String getPlayerId(){
-        return this.playerId.name();
+    public PlayerId getPlayerId(){
+        return this.playerId;
     }
 
 	public int getInPlay() {
