@@ -19,6 +19,8 @@ public class StrategyService {
 	
 	
 	public int getScoreOfThisMove(Board board, Move move, Player player){
+		//System.out.println("==============getScoreOfThisMove==============");
+		
 		if(move.isPass){ return 0; }
 		
 		unused.clear();
@@ -28,10 +30,11 @@ public class StrategyService {
 		resetTmpState(board);
 		addUnusedList(player);
 		move(board, move.toString());
-		while(inPlay.size() > 0){
+		while(inPlay.size() > 0){			
 			advanceTime(board, player.getPlayerId());
 		}
 		recoverState(board);
+		
 		return getScore();
 		
 	}
@@ -40,6 +43,7 @@ public class StrategyService {
 		for(int i=0; i<=board.maxNodeId; i++){
 			Node node = board.nodesMap.get(i);
 			node.tmpStatus = node.getStatus();
+			node.tmpOccupant = node.occupant;
 		}
 	}
 	
@@ -47,6 +51,7 @@ public class StrategyService {
 		for(int i=0; i<=board.maxNodeId; i++){
 			Node node = board.nodesMap.get(i);
 			node.setStatus(node.tmpStatus);
+			node.occupant = node.tmpOccupant;
 		}
 	}
 	
@@ -60,8 +65,6 @@ public class StrategyService {
 
 	
     private void move(Board board, String nextMove){
-    	System.out.println("nextMove==" + nextMove);
-    	
     	
         //If pass then do nothing
         if(nextMove.toLowerCase().trim().equals("pass")){
@@ -91,14 +94,14 @@ public class StrategyService {
         	}
 
         	Node node = board.nodesMap.get(nodeId);
-
         	place(node, program);
 
         }
     }
     
     private void advanceTime(Board board, PlayerId advantage){
-        for(Node node: board.nodesMap.values()){
+    	for(int i=0; i<=board.maxNodeId; i++){
+    		Node node = board.nodesMap.get(i);
             node.moveTime(advantage);
         }
         advanceTime();
@@ -138,16 +141,18 @@ public class StrategyService {
     
     private int getScore(){
         int score  = 0;
-        
-        System.out.println("getScore this.inPlay.size()=" +  this.inPlay.size());
-        
+
         for(Piece piece: this.inPlay){
             score = score + piece.getNodesEaten();
         }
 
+        //System.out.println("getScore this.dead.size()= " + this.dead.size());
         for(Piece piece: this.dead){
+        	//System.out.println("getScore piece.getNodesEaten()= " + piece.getNodesEaten());
             score = score + piece.getNodesEaten();
         }
         return score;
     }
+    
 }
+

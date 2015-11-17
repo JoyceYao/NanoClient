@@ -1,8 +1,8 @@
 
 
+
 import game.Board;
 import game.Move;
-import game.Node;
 import game.Player;
 import game.PlayerId;
 import game.PropertyService;
@@ -61,7 +61,7 @@ public class Main {
                 }
             }
             
-            socket.close();
+            //socket.close();
         } catch (IOException eIO) {
             System.out.println(eIO.getMessage());
         }

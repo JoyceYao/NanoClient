@@ -3,12 +3,14 @@ package game;
 
 import java.util.List;
 
+import game.Direction;
+
 /**
  * Created by islam on 11/1/15.
  */
 public class Piece {
     private PlayerId playerId;
-    private Node location;
+    public Node location;
     private List<Direction> program;
     private int moveCount;
     private boolean isDead;
@@ -39,16 +41,15 @@ public class Piece {
         return moveOrder.contains(Direction.UP) && moveOrder.contains(Direction.DOWN) &&
                 moveOrder.contains(Direction.LEFT) && moveOrder.contains(Direction.RIGHT);
     }
-
+/*
     public void advance(){
         if(isDead == false) {
             final int numberOfDirection = 4;
-
+        	
             if (location != null && isValidProgram(program)) {
                 //Search for valid move
                 for (int i = moveCount; i < moveCount + numberOfDirection; i++) {
                     Direction nextMove = program.get((moveCount + i) % numberOfDirection);
-
                     if (location.canMove(nextMove)) {
                         location.move(nextMove);
                         moveCount++;
@@ -60,10 +61,35 @@ public class Piece {
                 isDead = true;
             }
         }
+    }*/
+    public Direction advance(){
+        if(isDead == false) {
+            final int numberOfDirection = 4;
+
+            if (location != null && isValidProgram(program)) {
+                //Search for valid move
+                for (int i = moveCount; i < moveCount + numberOfDirection; i++) {
+                    Direction nextMove = program.get((i) % numberOfDirection);
+
+                    if (location.canMove(nextMove)) {
+                        location.move(nextMove);
+                        moveCount = i + 1;
+                        return nextMove;
+                    }
+                }
+
+                //If no valid move available then the piece is dead
+                isDead = true;
+                return null;
+            }
+        }
+        return null;
     }
 
     public void placeOnNode(Node node){
         this.location = node;
+        //System.out.println("eat node!! node=" +node);
+        //System.out.println("eat node!! nodesEaten=" +nodesEaten);
         nodesEaten++;
     }
 
@@ -93,7 +119,6 @@ public class Piece {
     }
 
     public boolean isNewPiece(){
-        System.out.println(moveCount);
         return moveCount == 0;
     }
 

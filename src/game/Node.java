@@ -14,10 +14,11 @@ public class Node {
     public Node left;
     public Node right;
 
-    private Piece occupant;
+    public Piece occupant;
     private List<Piece> desireOccupancy = new LinkedList<Piece>();
     
     public Status tmpStatus;
+    public Piece tmpOccupant;
 
 
     public Node(int id, int xLoc, int yLoc){
@@ -99,6 +100,9 @@ public class Node {
     }
 
     public void move(Direction direction){
+    	
+    	//if(this.occupant == null){ return; }
+    	
             switch (direction){
                 case UP:
                     up.place(this.occupant);
@@ -140,9 +144,9 @@ public class Node {
 
         boolean occuopantSelected = false;
         List<Piece> newPieces = new LinkedList<Piece>();
-
+        
         for(Piece piece: desireOccupancy){
-
+        	
             if(piece.getPreviousDirection() != null){
                 //First order is piece that moved up to get here
                 if(piece.getPreviousDirection().equals(Direction.UP)){
